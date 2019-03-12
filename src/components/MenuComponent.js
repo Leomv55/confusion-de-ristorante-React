@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import {Card,CardText,CardImg,CardBody,CardTitle,CardImgOverlay} from  'reactstrap'
-
+import DishDetail from './DishDetailComponent';
 export default class Menu extends Component{
     constructor(props) {
         super(props);
@@ -9,40 +9,13 @@ export default class Menu extends Component{
         }
     }
     onSelectedDish(dish){
-        this.setState(
-            {
-                selectedDish:dish
-            }
-            );
-    }
-    renderDish(dish){
-        if(dish!=null){
-            return(
-                <Card>
-                    <CardImg top src={dish.image} alt={dish.name}/>
-                    <CardBody>
-                        <CardTitle>
-                            {dish.name}
-                        </CardTitle>
-                        <CardText>
-                            {dish.description}
-                        </CardText>
-                    </CardBody>
-                </Card>
-            );
+        this.setState({selectedDish:dish});
         }
-        else{
-            return(
-                <div>
-
-                </div>
-            );
-        }
-    }
+    
     render() {
         const  menu=this.props.dishes.map((dish)=>{
             return(
-                <div className="col-12 col-md-5 m-1">
+                <div className="col-12 col-md-5 mt-5">
                     <Card key={dish.id} onClick={()=>{this.onSelectedDish(dish)}}>
                         <CardImg width="100%" src={dish.image} alt={dish.name} />
                         <CardImgOverlay>
@@ -56,13 +29,10 @@ export default class Menu extends Component{
         return(
             <div className="container">
                 <div className="row">
-                        {menu}
+                    {menu}
                 </div>
-                <div className="row">
-                    <div className="col-12 col-md-5">
-                        {this.renderDish(this.state.selectedDish)}
-                    </div>
-
+                <div className="row ml-2">
+                    <DishDetail dishes={this.state.selectedDish}/>
                 </div>
             </div>
         )
