@@ -4,11 +4,6 @@ import { Link } from 'react-router-dom';
 
 function About(props) {
 
-    const leaders = props.leaders.map((leader) => {
-        return (
-            <p>Leader {leader.name}</p>
-        );
-    });
 
     return(
         <div className="container">
@@ -66,11 +61,35 @@ function About(props) {
                 </div>
                 <div className="col-12">
                     <Media list>
-                        {leaders}
+                        <RenderLeaderList leaderlist={props.leaders}/>
                     </Media>
                 </div>
             </div>
         </div>
+    );
+}
+function RenderLeaderList({leaderlist}) {
+    const leaderArray=leaderlist.map((leader)=>{
+        return(
+            <RenderLeader leadern={leader}/>
+        );
+    });
+    return leaderArray;
+}
+function RenderLeader({leadern}) {
+    return (
+        <Media className="mt-5">
+            <Media left top href="#" className="p-3" >
+                <Media object src={leadern.image} alt="Generic placeholder image" className="rounded-circle" />
+            </Media>
+            <Media body>
+                <Media heading>
+                    {leadern.name}
+                </Media>
+                <p>{leadern.designation}</p>
+                {leadern.description}
+            </Media>
+        </Media>
     );
 }
 
