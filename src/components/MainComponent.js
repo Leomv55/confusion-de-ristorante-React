@@ -10,6 +10,7 @@ import Contact from "./ContactComponent";
 import {COMMENTS} from "../shared/comments";
 import {PROMOTIONS} from "../shared/promotions";
 import {LEADERS} from "../shared/leaders";
+import About from "./AboutComponent";
 
 export default class  Main extends Component{
     constructor(props){
@@ -21,13 +22,6 @@ export default class  Main extends Component{
             leaders:LEADERS,
             selectedDish:null
         }
-    }
-    onDishSelect(dishId){
-        this.setState(
-            {
-                selectedDish:dishId
-            }
-        );
     }
     render() {
         const DishWithId=({match})=>{
@@ -48,9 +42,10 @@ export default class  Main extends Component{
                         leader={this.state.leaders.filter((leader)=>leader.featured)[0]}
                         promotion={this.state.promotions.filter((promo)=>promo.featured)[0]}
                     />}/>
-                    <Route exact path="/menu" component={()=><Menu dishes={this.state.dishes} onClick={(dishId)=>{this.onDishSelect(dishId)}}/>}/>
+                    <Route exact path="/menu" component={()=><Menu dishes={this.state.dishes}/>}/>
                     <Route path="/menu/:dishId" component={DishWithId}/>
                     <Route exact path="/contactus" component={()=><Contact/>}/>
+                    <Route exact path={"/aboutus"} component={()=><About leaders={this.state.leaders}/>}/>
                     <Redirect to="/home"/>
                 </Switch>
             </div>
