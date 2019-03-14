@@ -1,3 +1,4 @@
 #comment-list{
     list-style: none;
+    display: contents;
 }
